@@ -59,5 +59,10 @@ testTable.tableCellsSelection('destroy');
 
 This is a almost completely rewritten version of [cells-selector plugin](http://cells-selector.02-web.ru/)
 
+#TODO
+- Integrate with browseer's selection API (if possible).
+- Implement valid table cells/columns/rows selection/deselection.
+- Implement valid `addDocumentHtmlChanges` - apply HTML DOM changes, required by plugin to work.
+
 # Licence
 The MIT License (MIT).
