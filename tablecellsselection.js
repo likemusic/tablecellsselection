@@ -19,11 +19,13 @@
                 selectedCellClass : 'tcs-selected',//класс добавляемый к выделенным ячейкам таблицы
                 selectionEnabled: 'tcs-selection-enabled', //???
                 selectionSum: true,
+                selectionSumBottom: false,
                 coordinateManipulateMagic: false
             };
             settings = 
     		    (!options) ? defaultSettings
                 : $.extend(defaultSettings,options);
+			//console.log('settings',settings);
             //todo: set listenets on all document for handle all tables added to html
     		return this.filter("table").each(initTableIfNeed);
         },
@@ -492,11 +494,12 @@
         if(settings.selectionSum){
             var sum,count,average;
             sum = 0;count = 0;average = 0;
-            $(".tcsCellsSelectionSum").remove();
+            $table.next(".tcsCellsSelectionSum").remove();
             $table.find('.'+settings.selectedCellClass).each(function () {
                 count++;
 				var text = $(this).text();
 				text = text.replace(/,/g,".");
+                text = text.replace(/\s/g,"");
                 if(isNumber(text)){
                     sum += parseFloat(text);
                     average = sum/count;
@@ -506,10 +509,12 @@
 			//console.log($last);
             var $pointXmin = $last.offset().left;
             var $pointYheight = $last.offset().top+$last.height();
-            
+            var style = '';
+            if(settings.selectionSumBottom === false){
+                style = 'style ="position:absolute;top:'+$pointYheight+'px;left:'+$pointXmin+'px;"';
+            }
             if(count > 1){
-                $table.after('<div class="tcsCellsSelectionSum" style="position:absolute;top:'
-                +$pointYheight+'px;left:'+$pointXmin+'px;">'+
+                $table.after('<div class="tcsCellsSelectionSum" '+style+'>'+
                 '<span>Среднее:<span></span>'+average+'</span>'+
                 ' <span>Кол-во:<span></span>'+count+'</span>'+
                 ' <span>Сумма:<span></span>'+sum+'</span></div>');
