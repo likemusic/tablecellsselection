@@ -53,6 +53,11 @@ $testTableContent = testTable.html();
 
 //Make table cells not intuitive selectable
 testTable.tableCellsSelection('destroy');
+
+//включение обработки обьединенных ячеек 'coordinateManipulateMagic':true
+//отключение суммирования ячеек 'selectionSum':false
+$('#tablecellsselection').tableCellsSelection({'coordinateManipulateMagic':true,'selectionSum':false});
+//При использовании bootstrap grid не правильно работает позиционирование блока с суммой ячеек (уезжает вниз и влево)
 ```
 
 # Appreciation
